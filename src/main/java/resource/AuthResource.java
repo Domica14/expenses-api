@@ -1,8 +1,8 @@
 package resource;
 
-import dto.auth.LoginRequest;
-import dto.auth.LoginResponse;
-import entity.User;
+import dto.request.RequestAuthDto;
+import dto.response.ResponseLoginDto;
+import dto.response.ResponseSignUpDto;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.Consumes;
@@ -10,9 +10,7 @@ import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
-import mapper.LoginMapper;
-import service.JwtService;
-import service.UserService;
+import service.AuthService;
 
 @Path("/auth")
 @Consumes(MediaType.APPLICATION_JSON)
@@ -20,19 +18,18 @@ import service.UserService;
 public class AuthResource {
     
     @Inject
-    UserService userService;
+    AuthService authService;
 
-    @Inject
-    LoginMapper loginMapper;
-
-    @Inject
-    JwtService jwtService;
+    @POST
+    @Path("/signup")
+    public ResponseSignUpDto signUp(@Valid RequestAuthDto request) {
+        return this.authService.createUser(request);
+    }
 
     @POST
     @Path("/login")
-    public LoginResponse login(@Valid LoginRequest request) {
-        User user = this.userService.login(this.loginMapper.toEntity(request));
-        String token = this.jwtService.generateToken(user.id.toString());
-        return this.loginMapper.toResponse(user, token);
+    public ResponseLoginDto login(@Valid RequestAuthDto request) {
+        return this.authService.verifyUser(request);
     }
+
 }

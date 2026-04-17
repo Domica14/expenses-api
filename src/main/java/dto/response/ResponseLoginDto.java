@@ -1,9 +1,8 @@
-package dto.auth;
+package dto.response;
 
 import java.util.UUID;
 
-public class LoginResponse {
-    
+public class ResponseLoginDto {
     public UUID id;
     public String email;
     public String token;

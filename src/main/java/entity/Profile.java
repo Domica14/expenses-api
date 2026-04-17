@@ -1,37 +1,35 @@
 package entity;
 
-import java.util.List;
 import java.util.UUID;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "users")
-public class User extends PanacheEntityBase {
+@Table(name = "profiles")
+public class Profile extends PanacheEntityBase {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     public UUID id;
 
-    @Column(unique = true, nullable = false)
-    public String email;
+    @Column(nullable = false)
+    public String name;
 
     @Column(nullable = false)
-    public String password;
+    public String lastname;
 
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
-    public Profile profile;
+    @Column(nullable = false)
+    public String phoneNumber;
 
-    @OneToMany(mappedBy = "user")
-    public List<Expense> expenses;
-
+    @OneToOne
+    @JoinColumn(name = "user_id", unique = true, nullable = false)
+    public User user;
 }

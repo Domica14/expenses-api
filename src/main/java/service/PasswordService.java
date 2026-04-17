@@ -10,7 +10,7 @@ public class PasswordService {
         return BcryptUtil.bcryptHash(password);
     }
 
-    public boolean verifyPassword(String password, String hashedPassword) {
+    public boolean verifyPassword(String hashedPassword, String password) {
         return BcryptUtil.matches(password, hashedPassword);
     }
 }

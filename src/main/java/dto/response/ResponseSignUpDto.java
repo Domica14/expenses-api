@@ -1,9 +1,9 @@
-package dto.user;
+package dto.response;
 
 import java.util.UUID;
 
-public class UserResponse {
-    
+public class ResponseSignUpDto {
+
     public UUID id;
     public String email;
 }
