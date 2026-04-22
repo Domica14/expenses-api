@@ -2,6 +2,7 @@ package dto.request;
 
 import entity.Categories;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
 import org.hibernate.validator.constraints.Length;
 
@@ -14,11 +15,10 @@ public class RequestExpenseDto {
     @Length(max = 255)
     public String description;
 
-    @NotBlank
+    @NotNull
     public Double amount;
 
-    @NotBlank
-    @Length(max = 50)
+    @NotNull
     public Categories category;
 
     @PastOrPresent

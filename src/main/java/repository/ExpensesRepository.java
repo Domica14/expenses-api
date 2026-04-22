@@ -14,7 +14,7 @@ import jakarta.enterprise.context.ApplicationScoped;
 public class ExpensesRepository implements PanacheRepositoryBase<Expense, UUID> {
     
     public PanacheQuery<Expense> getAllUserExpenses(UUID userId, int page, int pageSize) {
-        return this.find("user.id = ?0", userId).page(Page.of(page, pageSize));
+        return this.find("user.id = ?1", userId).page(Page.of(page, pageSize));
     }
 
     public Optional<Expense> getExpenseById(UUID id) {
@@ -27,6 +27,6 @@ public class ExpensesRepository implements PanacheRepositoryBase<Expense, UUID> 
     }
 
     public void remove(UUID id) {
-        this.delete("id = ?0", id);
+        this.delete("id = ?1", id);
     }
 }
